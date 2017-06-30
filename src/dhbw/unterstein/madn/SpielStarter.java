@@ -14,13 +14,16 @@ public class SpielStarter {
 
   private static List<Spieler> spielerEingabe() {
     List<Spieler> result = new ArrayList<>();
-    while (true) {
+    int counter = 0;
+    while (counter < 4) {
       System.out.println("Bitte Namen eingeben:");
       String eingabe = IOHelper.readString();
       if ("ende".equals(eingabe)) {
         return result;
       }
       result.add(new Spieler(eingabe));
+      counter++;
     }
+    return result;
   }
 }
