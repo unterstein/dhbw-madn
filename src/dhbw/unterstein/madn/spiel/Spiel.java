@@ -1,6 +1,7 @@
 package dhbw.unterstein.madn.spiel;
 
 import java.util.List;
+import java.util.Random;
 
 public class Spiel {
 
@@ -8,18 +9,31 @@ public class Spiel {
   private Spieler aktuellerSpieler;
   private SpielBrett spielBrett;
 
+  private Random wuerfel = new Random();
+
   public Spiel(List<Spieler> spieler) {
     this.spieler = spieler;
     this.spielBrett = new SpielBrett(spieler);
     this.aktuellerSpieler = spieler.get(0);
-  }
+    while (true) {
+      spielBrett.anzeigen();
 
-  public void start() {
-
-  }
-
-  public void neu() {
-
+      int wurf = Math.abs(wuerfel.nextInt() % 6) + 1;
+      System.out.println("Wurf: " + wurf);
+      boolean eingabeNotwendig = true;
+      while (eingabeNotwendig) {
+        try {
+          Figur figur = aktuellerSpieler.waehleFigur();
+          eingabeNotwendig = false;
+          if (figur != null) {
+            spielBrett.bewegen(aktuellerSpieler, figur, wurf);
+          }
+        } catch (IllegalArgumentException e) {
+          System.out.println("Fehler: " + e.getMessage());
+        }
+      }
+      aktuellerSpieler = spieler.get((spieler.indexOf(aktuellerSpieler) + 1) % spieler.size());
+    }
   }
 
   public List<Spieler> getSpieler() {

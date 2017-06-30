@@ -1,5 +1,7 @@
 package dhbw.unterstein.madn.spiel;
 
+import dhbw.unterstein.madn.helper.IOHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +17,13 @@ public class Spieler {
     }
   }
 
-  public void weiter() {
-
-  }
-
   public Figur waehleFigur() {
-    return null;
+    System.out.println("Bitte wähle eine Figur:");
+    String eingabe = IOHelper.readString();
+    if ("weiter".equals(eingabe)) {
+      return null;
+    }
+    return figuren.get(Integer.valueOf(eingabe));
   }
 
   public boolean isFertig() {
