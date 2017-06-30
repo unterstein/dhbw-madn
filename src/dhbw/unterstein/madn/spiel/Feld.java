@@ -8,10 +8,6 @@ public class Feld {
     this.art = art;
   }
 
-  public boolean isFertig() {
-    return FeldArt.END.equals(art);
-  }
-
   public FeldArt getArt() {
     return art;
   }

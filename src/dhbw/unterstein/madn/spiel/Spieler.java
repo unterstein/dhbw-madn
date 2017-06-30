@@ -1,16 +1,18 @@
 package dhbw.unterstein.madn.spiel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Spieler {
   private final String name;
   private final List<Figur> figuren;
-  private final Feld startFeld;
 
-  public Spieler(String name, List<Figur> figuren, Feld startFeld) {
+  public Spieler(String name) {
     this.name = name;
-    this.figuren = figuren;
-    this.startFeld = startFeld;
+    this.figuren = new ArrayList<>();
+    for (int i = 0; i < 4; i++) {
+      figuren.add(new Figur());
+    }
   }
 
   public void weiter() {
@@ -22,6 +24,14 @@ public class Spieler {
   }
 
   public boolean isFertig() {
-    return figuren.stream().allMatch(Figur::isFertig);
+    return figuren.stream().allMatch(figur -> figur.stehtAuf(FeldArt.END));
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public List<Figur> getFiguren() {
+    return figuren;
   }
 }

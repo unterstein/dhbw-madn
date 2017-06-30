@@ -4,7 +4,15 @@ public class Figur {
 
   private Feld aktuellesFeld;
 
-  public boolean isFertig() {
-    return aktuellesFeld != null && aktuellesFeld.isFertig();
+  public boolean stehtAuf(FeldArt art) {
+    return aktuellesFeld != null && aktuellesFeld.getArt().equals(art);
+  }
+
+  public void setAktuellesFeld(Feld aktuellesFeld) {
+    this.aktuellesFeld = aktuellesFeld;
+  }
+
+  public Feld getAktuellesFeld() {
+    return aktuellesFeld;
   }
 }
