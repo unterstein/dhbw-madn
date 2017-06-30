@@ -16,7 +16,7 @@ public class Spiel {
     this.spielBrett = new SpielBrett(spieler);
     this.aktuellerSpieler = spieler.get(0);
     while (true) {
-      System.out.println("Spieler " + aktuellerSpieler.getName() + " ist am Zug.");
+      System.out.println("Spieler " + spieler.indexOf(aktuellerSpieler) + " - " + aktuellerSpieler.getName() + " ist am Zug.");
       spielBrett.anzeigen();
 
       int wurf = Math.abs(wuerfel.nextInt() % 6) + 1;
@@ -31,7 +31,7 @@ public class Spiel {
           }
         } catch (IllegalArgumentException e) {
           System.out.println("Fehler: " + e.getMessage());
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
           System.out.println("Fehler: Falsche Figur gewählt!");
         }
       }

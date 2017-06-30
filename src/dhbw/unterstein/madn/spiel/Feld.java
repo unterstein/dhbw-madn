@@ -18,5 +18,8 @@ public class Feld {
 
   public void setFigur(Figur figur) {
     this.figur = figur;
+    if (figur != null) {
+      figur.setAktuellesFeld(this);
+    }
   }
 }

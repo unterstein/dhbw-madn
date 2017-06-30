@@ -49,10 +49,10 @@ public class SpielBrett {
       this.initialFeld.put(spieler, initialFeld);
       this.endFeld.put(spieler, endFeld);
       for (int x = 0; x < 4; x++) {
-        spieler.getFiguren().get(x).setAktuellesFeld(initialFeld.get(x));
         initialFeld.get(x).setFigur(spieler.getFiguren().get(x));
       }
       startFeld.put(spieler, spielFeld.get(counter * 10));
+      counter++;
     }
   }
 
@@ -71,7 +71,7 @@ public class SpielBrett {
     for (int x = 0; x < 4; x++) {
       for (int y = 0; y < 4; y++) {
         if (spieler.size() > x && initialFeld.get(spieler.get(x)).size() > y && initialFeld.get(spieler.get(x)).get(y).getFigur() != null) {
-          local = local.replace(spielerBuchstaben[x] + y, "" + (x + 1) + y);
+          local = local.replace(spielerBuchstaben[x] + y, "" + x + y);
         } else {
           local = local.replace(spielerBuchstaben[x] + y, "  ");
         }
@@ -93,15 +93,17 @@ public class SpielBrett {
             throw new IllegalArgumentException("Besetzt!");
           } else {
             figur.getAktuellesFeld().setFigur(null);
-            figur.setAktuellesFeld(zielFeld);
+            zielFeld.setFigur(figur);
           }
         }
       }
+      break;
       case SPIEL: {
-        int aktuellePosition = spielFeld.indexOf(figur);
+        int aktuellePosition = spielFeld.indexOf(figur.getAktuellesFeld());
         Feld zielFeld = spielFeld.get((aktuellePosition + schritte) % 40);
         bewegeFigur(spieler, figur, zielFeld);
       }
+      break;
       case INITIAL:
         if (schritte != 6) {
           throw new IllegalArgumentException("Keine 6 :-/");
@@ -121,7 +123,7 @@ public class SpielBrett {
         zielFeld.setFigur(figur);
       }
     } else {
-      initialFeld.get(spieler).stream().filter(a -> figur.equals(a.getFigur())).forEach(a -> a.setFigur(null));
+      figur.getAktuellesFeld().setFigur(null);
       zielFeld.setFigur(figur);
     }
   }
